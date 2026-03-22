@@ -2,6 +2,7 @@ package com.voting.controller;
 
 import com.voting.model.Voter;
 import com.voting.model.Candidate;
+import com.voting.service.VotingService;
 import com.voting.repository.CandidateRepository;
 import com.voting.service.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class AdminController{
     @Autowired 
     private CandidateRepository candidateRepository;
 
+    @Autowired
+    private VotingService votingService;
+    
+
     @PostMapping("/register")
     public String register(@RequestBody Voter voter){
         return voterService.registerVoter(voter);
@@ -29,8 +34,23 @@ public class AdminController{
     }
 
     @GetMapping("/candidates")
-    public List<Candidate> getCandidates(){
+    public List<Candidate> getCandidates() {
         return candidateRepository.findAll();
+    }
+
+    @PostMapping("/resetVoters")
+    public String resetVoters() {
+        return voterService.resetAllVoters();
+    }
+
+    @PostMapping("/resetVotes")
+    public String resetVotes() {
+        return votingService.resetAllCandidates();
+    }
+
+    @PostMapping("/clearVotes")
+    public String clearVotes() {
+        return votingService.clearAllVotes();
     }
     
 }

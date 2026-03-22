@@ -5,7 +5,7 @@ import com.voting.repository.VoterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class VoterService{
@@ -35,4 +35,15 @@ public class VoterService{
         return voterRepository.findByAadhaarId(aadhaarId);
     }
     
+    public String resetAllVoters() {
+        List<Voter> voters = voterRepository.findAll();
+
+        for (Voter v : voters) {
+            v.setHasVoted(false);
+        }
+
+        voterRepository.saveAll(voters);
+
+        return "All voters reset successfully";
+    }
 }
