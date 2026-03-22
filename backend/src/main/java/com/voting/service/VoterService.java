@@ -13,15 +13,15 @@ public class VoterService{
     @Autowired
     private VoterRepository voterRepository;
 
-    public String registerVoter(Voter voter){
+    public String registerVoter(Voter voter) {
 
-        if(voter.getAge() < 18){
+        if (voter.getAge() < 18) {
             return "Voter must be 18+";
         }
 
         Optional<Voter> existing = voterRepository.findByAadhaarId(voter.getAadhaarId());
 
-        if(existing.isPresent()){
+        if (existing.isPresent()) {
             return "Voter already registered";
         }
 
@@ -29,6 +29,10 @@ public class VoterService{
         voterRepository.save(voter);
 
         return "Voter registered successfully";
+    }
+
+    public Optional<Voter> getByAadhaar(String aadhaarId) {
+        return voterRepository.findByAadhaarId(aadhaarId);
     }
     
 }

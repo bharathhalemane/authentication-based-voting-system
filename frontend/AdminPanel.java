@@ -51,7 +51,7 @@ public class AdminPanel extends JFrame{
                     "{\"name\":\"%s\",\"age\":%d,\"aadhaarId\":\"%s\",\"biometricData\":\"face_data\",\"hasVoted\":false}",
                     nameField.getText(),
                     Integer.parseInt(ageField.getText()),
-                    aadhaarField.getText(), 
+                    aadhaarField.getText() 
                 );
                 System.out.println(json);
                 String response = ApiService.registerVoter(json);

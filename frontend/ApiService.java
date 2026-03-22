@@ -34,4 +34,76 @@ public class ApiService{
             return e.getMessage();
         }
     }
+
+    public static String getVoter(String aadhaar){
+        try{
+            URL url = new URL(BASE_URL + "/api/admin/getByAadhaar?aadhaarId=" + aadhaar);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("GET");
+
+            BufferedReader br = new BufferedReader(
+                new InputStreamReader(conn.getInputStream())
+            );
+            String line;
+            StringBuilder response = new StringBuilder();
+
+            while((line = br.readLine()) != null){
+                response.append(line);
+            }
+
+            return response.toString();
+        }catch(Exception e){
+            return null;
+        }
+    }
+
+    public static String getCandidates() {
+        try{
+            URL url = new URL(BASE_URL + "/api/admin/candidates");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("GET");
+
+            BufferedReader br = new BufferedReader(
+                new InputStreamReader(conn.getInputStream())
+            );
+
+            String line;
+            StringBuilder response = new StringBuilder();
+            while((line = br.readLine()) != null){
+                response.append(line);
+            }
+
+            return response.toString();
+        }catch(Exception e) {
+            return null;
+        }
+    }
+
+    public static String vote(String voterId, String candidateId){
+        try{
+            URL url = new URL(BASE_URL + "/api/vote/submit?voterId=" + voterId + "&candidateId=" + candidateId);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+
+            BufferedReader br = new BufferedReader(
+                new InputStreamReader(conn.getInputStream())
+            );
+
+            String line;
+            StringBuilder response = new StringBuilder();
+
+            while((line = br.readLine()) != null){
+                response.append(line);
+            }
+
+            return response.toString();
+        }catch(Exception e){
+            return null;
+        }
+    }
 }

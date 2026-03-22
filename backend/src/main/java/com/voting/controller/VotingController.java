@@ -12,7 +12,7 @@ public class VotingController {
     private VotingService votingService;
 
     @PostMapping("/submit")
-    public String vote(@RequestParam String voterId, @RequestParam String candidateId){
+    public String vote(@RequestParam String voterId, @RequestParam String candidateId) {
         return votingService.castVote(voterId, candidateId);
     }
 }
